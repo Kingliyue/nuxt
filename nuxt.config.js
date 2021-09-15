@@ -3,7 +3,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: '{{ name }}',
+    title: '{{ 李岳 }}',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -33,6 +33,19 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+    }
+  },
+  axios: {
+    proxy: true, // 需要的，不设置请求无法转发
+  },
+  proxy: {
+    '/api/': {
+      target: 'http://127.0.0.1:9000', // 请求得对方地址
+      changeOrigin: true,
+    },
+    '/static/': {
+      target: 'http://127.0.0.1:9000',
+      changeOrigin: true,
     }
   }
 }
