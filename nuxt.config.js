@@ -35,18 +35,25 @@ module.exports = {
       }
     }
   },
-  axios: {
-    proxy: true, // 需要的，不设置请求无法转发
+  modules: [
+    // Doc: https://github.com/nuxt-community/axios-module#usage
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy',
+  ],
+axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+    proxy: true, // 表示开启代理
+    prefix: '/api', // 表示给请求url加个前缀 /api
+    credentials: true // 表示跨域请求时是否需要使用凭证
   },
   proxy: {
-    '/api/': {
-      target: 'http://127.0.0.1:9000', // 请求得对方地址
-      changeOrigin: true,
-    },
-    '/static/': {
-      target: 'http://127.0.0.1:9000',
-      changeOrigin: true,
+    '/api': {
+        target: 'http://localhost:8004', // 目标接口域名
+        changeOrigin: true, // 表示是否跨域
+        pathRewrite: {
+          '^/api': '', // 把 /api 替换成‘’
+        }
     }
-  }
+  },
 }
 
