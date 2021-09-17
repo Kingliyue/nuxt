@@ -1,17 +1,11 @@
 <template>
-  
   <div>
     <!-- 幻灯片 开始 -->
     <div v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" style="background: #040B1B;">
-                <a target="_blank" href="/">
-                    <img src="~/assets/photo/banner/1525939573202.jpg" alt="首页banner">
-                </a>
-            </div>
-            <div class="swiper-slide" style="background: #F3260B;">
-                <a target="_blank" href="/">
-                    <img src="~/assets/photo/banner/153525d0ef15459596.jpg" alt="首页banner">
+            <div v-for="banner in bannerList" :key="banner.id"  class="swiper-slide" style="background: #040B1B;">
+                <a target="_blank" :href="banner.linkUrl">
+                    <img width="100%" :src="banner.imageUrl" :alt="banner.title">
                 </a>
             </div>
         </div>
@@ -30,7 +24,7 @@
               <span class="c-333">热门课程</span>
             </h2>
           </header>
-          <div>
+          <div v-for="course in courseList" :key="course.id" >
             <article class="comm-course-list">
               <ul class="of" id="bna">
                 <li>
@@ -39,7 +33,7 @@
                       <img
                         src="~/assets/photo/course/1442295592705.jpg"
                         class="img-responsive"
-                        alt="听力口语"
+                        :alt="course.titele"
                       >
                       <div class="cc-mask">
                         <a href="#" title="开始学习" class="comm-btn c-btn-1">开始学习</a>
@@ -370,11 +364,50 @@
 
 <script>
 import AppLogo from '~/components/AppLogo.vue'
-
+import {getBannerList} from '../api/banner'
+import {getHostTeacherAndCourse} from'../api/teacherAndCourse'
 export default {
+   data () {
+    return {
+      swiperOption: {
+        //配置分页
+        pagination: {
+          el: '.swiper-pagination'//分页的dom节点
+        },
+        //配置导航
+        navigation: {
+          nextEl: '.swiper-button-next',//下一页dom节点
+          prevEl: '.swiper-button-prev'//前一页dom节点
+        }
+      },
+      bannerList:[],
+      courseList:[],
+      teacherList:[],
+    }
+  },
   components: {
     AppLogo
+  },
+  created(){
+    this.getBanner()
+  },
+  methods:{
+
+      getBanner(){
+          getBannerList().then(res=>{
+          this.bannerList = res.data.BannerList
+      })
+      },
+      getHostTeacherAndCourseList(){
+        getHostTeacherAndCourse().then(res=>{
+          this.courseList = res.data.courseList
+          this.teacherList = res.data.teacherList
+        })
+      }
+
+
   }
+
 }
 </script>
 
@@ -408,22 +441,5 @@ export default {
   padding-top: 15px;
 }
 </style>
-<script>
-export default {
-  data () {
-    return {
-      swiperOption: {
-        //配置分页
-        pagination: {
-          el: '.swiper-pagination'//分页的dom节点
-        },
-        //配置导航
-        navigation: {
-          nextEl: '.swiper-button-next',//下一页dom节点
-          prevEl: '.swiper-button-prev'//前一页dom节点
-        }
-      }
-    }
-  }
-}
+
 
