@@ -48,6 +48,7 @@ module.exports = {
     credentials: true // 表示跨域请求时是否需要使用凭证
   },
   proxy: {
+
     '/banner': {
       target: 'http://localhost:8004', // 目标接口域名
       changeOrigin: true, // 表示是否跨域
@@ -66,6 +67,5 @@ module.exports = {
   plugins: [
     { src: '~/plugins\\nuxt-swiper-plugin.js', ssr: false }
   ],
-
 }
 
