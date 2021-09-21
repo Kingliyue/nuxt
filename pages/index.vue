@@ -383,6 +383,7 @@ export default {
       bannerList:[],
       courseList:[],
       teacherList:[],
+
     }
   },
   components: {
@@ -404,7 +405,6 @@ export default {
           this.teacherList = res.data.teacherList
         })
       }
-
 
   }
 
@@ -441,5 +441,9 @@ export default {
   padding-top: 15px;
 }
 </style>
+<<<<<<< HEAD
 
+=======
+<script>
+>>>>>>> 896bf801f1f8b7bb619c867c7e1eedd0f07de710
 
