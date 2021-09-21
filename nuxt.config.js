@@ -40,13 +40,18 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
   ],
+<<<<<<< HEAD
   axios: {
+=======
+axios: {
+>>>>>>> 896bf801f1f8b7bb619c867c7e1eedd0f07de710
     // See https://github.com/nuxt-community/axios-module#options
     proxy: true, // 表示开启代理
     prefix: '/api', // 表示给请求url加个前缀 /api
     credentials: true // 表示跨域请求时是否需要使用凭证
   },
   proxy: {
+<<<<<<< HEAD
     '/banner': {
       target: 'http://localhost:8004', // 目标接口域名
       changeOrigin: true, // 表示是否跨域
@@ -65,5 +70,15 @@ module.exports = {
   plugins: [
     { src: '~/plugins\\nuxt-swiper-plugin.js', ssr: false }
   ],
+=======
+    '/api': {
+        target: 'http://localhost:8004', // 目标接口域名
+        changeOrigin: true, // 表示是否跨域
+        pathRewrite: {
+          '^/api': '', // 把 /api 替换成‘’
+        }
+    }
+  },
+>>>>>>> 896bf801f1f8b7bb619c867c7e1eedd0f07de710
 }
 
