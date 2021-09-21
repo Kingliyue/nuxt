@@ -31,7 +31,7 @@
                   <div class="cc-l-wrap">
                     <section class="course-img">
                       <img
-                        src="~/assets/photo/course/1442295592705.jpg"
+                        :src="course.cover"
                         class="img-responsive"
                         :alt="course.titele"
                       >
@@ -390,10 +390,10 @@ export default {
     AppLogo
   },
   created(){
-    this.getBanner()
+    this.getBanner();
+    this.getHostTeacherAndCourseList()
   },
   methods:{
-
       getBanner(){
           getBannerList().then(res=>{
           this.bannerList = res.data.BannerList
@@ -403,6 +403,7 @@ export default {
         getHostTeacherAndCourse().then(res=>{
           this.courseList = res.data.courseList
           this.teacherList = res.data.teacherList
+          console.log(this.courseList)
         })
       }
 
@@ -441,9 +442,5 @@ export default {
   padding-top: 15px;
 }
 </style>
-<<<<<<< HEAD
 
-=======
-<script>
->>>>>>> 896bf801f1f8b7bb619c867c7e1eedd0f07de710
 

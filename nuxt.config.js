@@ -48,6 +48,7 @@ module.exports = {
     credentials: true // 表示跨域请求时是否需要使用凭证
   },
   proxy: {
+
     '/banner': {
       target: 'http://localhost:8004', // 目标接口域名
       changeOrigin: true, // 表示是否跨域
@@ -56,7 +57,7 @@ module.exports = {
       }
     },
     '/edu': {
-      target: 'http://localhost:8003', // 目标接口域名
+      target: 'http://localhost:8001', // 目标接口域名
       changeOrigin: true, // 表示是否跨域
       pathRewrite: {
         '^/edu': '', // 把 /api 替换成‘’
@@ -64,8 +65,7 @@ module.exports = {
     }
   },
   plugins: [
-    { src: '~/plugins\\nuxt-swiper-plugin.js', ssr: false }
+    { src: '~/plugins//nuxt-swiper-plugin.js', ssr: false }
   ],
-
 }
 
