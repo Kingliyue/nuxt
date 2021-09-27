@@ -67,7 +67,7 @@
 <script>
   import '~/assets/css/sign.css'
   import '~/assets/css/iconfont.css'
-
+  import {getPhoneCode,registerMember} from '../api/register'
 
   export default {
     layout: 'sign',
@@ -76,7 +76,7 @@
         params: { //封装注册输入数据
           mobile: '',
           code: '',  //验证码
-          nickname: '',
+          name: '',
           password: ''
         },
         sending: true,      //是否发送验证码
@@ -88,7 +88,7 @@
      
        //注册提交的方法
        submitRegister() {
-         registerApi.registerMember(this.params)
+         registerMember(this.params)
           .then(response => {
             //提示注册成功
               this.$message({
@@ -116,7 +116,7 @@
       },
        //通过输入手机号发送验证码
        getCodeFun() {
-         registerApi.sendCode(this.params.mobile)
+        getPhoneCode(this.params.mobile)
           .then(response => {
               this.sending = false
               //调用倒计时的方法

@@ -62,6 +62,19 @@ module.exports = {
       pathRewrite: {
         '^/edu': '', // 把 /api 替换成‘’
       }
+    },
+    '/user': {
+      target: 'http://localhost:8006', // 目标接口域名
+      changeOrigin: true, // 表示是否跨域
+      pathRewrite: {
+        '^/user': '', // 把 /api 替换成‘’
+      }
+    }, '/code': {
+      target: 'http://localhost:8005', // 目标接口域名
+      changeOrigin: true, // 表示是否跨域
+      pathRewrite: {
+        '^/code': '', // 把 /api 替换成‘’
+      }
     }
   },
   plugins: [
