@@ -1,17 +1,17 @@
 <template>
+  <client-only>
   <div class="main">
     <div class="title">
       <a href="/login">登录</a>
       <span>·</span>
       <a class="active" href="/register">注册</a>
     </div>
-
     <div class="sign-up-container">
       <el-form ref="userForm" :model="params">
 
-        <el-form-item class="input-prepend restyle" prop="nickname" :rules="[{ required: true, message: '请输入你的昵称', trigger: 'blur' }]">
+        <el-form-item class="input-prepend restyle" prop="name" :rules="[{ required: true, message: '请输入你的昵称', trigger: 'blur' }]">
           <div>
-            <el-input type="text" placeholder="你的昵称" v-model="params.nickname"/>
+            <el-input type="text" placeholder="你的昵称" v-model="params.name"/>
             <i class="iconfont icon-user"/>
           </div>
         </el-form-item>
@@ -51,7 +51,7 @@
           <a target="_blank" href="http://www.jianshu.com/p/2ov8x3">隐私政策</a> 。
         </p>
       </el-form>
-      <!-- 更多注册方式 -->
+      
       <div class="more-sign">
         <h6>社交帐号直接注册</h6>
         <ul>
@@ -62,6 +62,7 @@
       </div>
     </div>
   </div>
+  </client-only>
 </template>
 
 <script>
@@ -106,7 +107,7 @@
           this.codeTest = this.second
           if (this.second < 1) {
             clearInterval(result);
-            this.sending = true;
+            this.sending = false;
             //this.disabled = false;
             this.second = 60;
             this.codeTest = "获取验证码"
@@ -116,6 +117,12 @@
       },
        //通过输入手机号发送验证码
        getCodeFun() {
+        if(this.params.mobile==''){
+           this.$message({
+                type: 'warn',
+                message: "请输入手机号"
+              })
+        }
         getPhoneCode(this.params.mobile)
           .then(response => {
               this.sending = false
