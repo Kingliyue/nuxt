@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^0.21.4",
     "element-ui": "^2.15.6",
+    "js-cookie": "^3.0.1",
     "nuxt": "^2.0.0",
     "swiper": "^4.5.1",
     "vue-awesome-swiper": "^4.1.1"
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/proxy": "^2.1.0",
+    "@types/js-cookie": "^2.2.7",
     "babel-eslint": "^10.0.1",
     "eslint": "^4.19.1",
     "eslint-friendly-formatter": "^4.0.1",

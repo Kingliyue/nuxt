@@ -45,6 +45,8 @@
 <script>
   import '~/assets/css/sign.css'
   import '~/assets/css/iconfont.css'
+  import Cookies from 'js-cookie'
+  import {login}from '../api/login'
 
   export default {
     layout: 'sign',
@@ -55,7 +57,8 @@
           mobile:'',
           password:''
         },
-        loginInfo:{}
+        loginInfo:{},
+        
       }
     },
 
@@ -67,6 +70,17 @@
           return callback(new Error('手机号码格式不正确'))
         }
         return callback()
+      },
+      //登录
+      
+      submitLogin(){
+        //登录后获取后台返给前端的token的值
+        login(user).then(res = {
+             
+          
+          
+
+        })
       }
     }
   }
