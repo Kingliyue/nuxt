@@ -45,9 +45,8 @@
 <script>
   import '~/assets/css/sign.css'
   import '~/assets/css/iconfont.css'
-  import Cookies from 'js-cookie'
-  import {login}from '../api/login'
-
+  import {userLogin,getUserInfo}from '../api/login'
+   import Cookies from 'js-cookie'
   export default {
     layout: 'sign',
 
@@ -69,18 +68,25 @@
         if (!(/^1[34578]\d{9}$/.test(value))) {
           return callback(new Error('手机号码格式不正确'))
         }
-        return callback()
+        return callback()  
       },
       //登录
       
       submitLogin(){
+       
         //登录后获取后台返给前端的token的值
-        login(user).then(res = {
-             
+        userLogin(this.user).then(res=>{
+           Cookies.set("liyue_token",res.data.token,{ domain: 'localhost' })
+        //根据token获取用户信息
+           getUserInfo().then(res =>{
+             this.loginInfo = res.data.member
+             console.log(this.loginInfo )
+             Cookies.set('liyue_ucenter', res.data.member, { domain: 'localhost' })
+              this.$router.push("/");
+           })
           
-          
-
         })
+       
       }
     }
   }

@@ -8,7 +8,9 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
   config => {
-
+    if (Cookies.get('liyue_token')) {
+      config.headers['token'] = Cookies.get('liyue_token')
+    }
     return config
   },
   error => {

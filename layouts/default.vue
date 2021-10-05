@@ -27,35 +27,34 @@
             </router-link>
           </ul>
           <!-- / nav -->
-          <ul class="h-r-login">
+        <ul class="h-r-login">
             <li id="no-login">
+            <li v-if="!loginInfo.id" id="no-login">
               <a href="/login" title="登录">
                 <em class="icon18 login-icon">&nbsp;</em>
                 <span class="vam ml5">登录</span>
-              </a>
-              |
-              <a href="/register" title="注册">
                 <span class="vam ml5">注册</span>
               </a>
             </li>
-            <li class="mr10 undis" id="is-login-one">
-              <a href="#" title="消息" id="headerMsgCountId">
+            <li id="is-login-one" class="mr10 undis">
+            <li v-if="loginInfo.id" id="is-login-one" class="mr10">
+              <a id="headerMsgCountId" href="#" title="消息">
                 <em class="icon18 news-icon">&nbsp;</em>
               </a>
               <q class="red-point" style="display: none">&nbsp;</q>
             </li>
-            <li class="h-r-user undis" id="is-login-two">
-              <a href="#" title>
+            <li v-if="loginInfo.id" id="is-login-two" class="h-r-user">
+              <a href="/ucenter" title>
                 <img
-                  src="~/assets/img/avatar-boy.gif"
+                  :src="loginInfo.avatar"
                   width="30"
                   height="30"
                   class="vam picImg"
                   alt
                 >
-                <span class="vam disIb" id="userName"></span>
+                <span id="userName" class="vam disIb">{{ loginInfo.nickname }}</span>
               </a>
-              <a href="javascript:void(0)" title="退出" onclick="exit();" class="ml5">退出</a>
+              <a href="javascript:void(0);" title="退出" class="ml5" @click="logout()">退出</a>
             </li>
             <!-- /未登录显示第1 li；登录后显示第2，3 li -->
           </ul>
@@ -135,6 +134,25 @@ import "~/assets/css/reset.css";
 import "~/assets/css/theme.css";
 import "~/assets/css/global.css";
 import "~/assets/css/web.css";
-export default {};
+import cookie from 'js-cookie'
+export default {
+  data(){
+    return{
+      loginInfo:{}
+    }
+  },
+  created(){
+       this.showUserInfo()
+  },
+  methods:{
+      showUserInfo(){
+         var userStr = cookie.get('liyue_ucenter')
+        if (userStr) {
+          console.log(userStr);
+        this.loginInfo = JSON.parse(userStr)
+        }
+      }
+  }
+};
 </script>
 
