@@ -70,18 +70,18 @@
   </div>
 </template>
 <script>
-//import teacher from "@/api/teacher"
+import teacher from "@/api/teacher"
 export default {
   asyncData({ params, error }) {
-    return teacher.getPageList(1, 8).then(response => {
+    return teacher.getTeacherPage(1, 8).then(response => {
       // console.log(response);
-      console.log(response.data.data)
-      return { data: response.data.data }
+      console.log(response.data)
+      return { data: response.data}
     });
   },
   methods: {
     gotoPage(page){
-        teacher.getPageList(page, 8).then(response => {
+        teacher.getTeacherPage(page, 8).then(response => {
             this.data = response.data.data
         })
     }
