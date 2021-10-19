@@ -117,7 +117,7 @@
       },
        //通过输入手机号发送验证码
        getCodeFun() {
-        if(this.params.mobile==''){
+        if(this.params.mobile===''){
            this.$message({
                 type: 'warn',
                 message: "请输入手机号"

@@ -65,7 +65,7 @@ module.exports = {
       }
     },
     '/user': {
-      target: 'http://localhost:8006', // 目标接口域名
+      target: 'http://localhost:8150', // 目标接口域名
       changeOrigin: true, // 表示是否跨域
       pathRewrite: {
         '^/user': '', // 把 /api 替换成‘’

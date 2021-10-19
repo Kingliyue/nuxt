@@ -1,4 +1,5 @@
 <template>
+   <client-only>
   <div class="in-wrap">
     <!-- 公共头引入 -->
     <header id="header">
@@ -143,6 +144,7 @@
     </footer>
     <!-- /公共底引入 -->
   </div>
+   </client-only>
 </template>
 <script>
 import "~/assets/css/reset.css";

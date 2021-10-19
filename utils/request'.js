@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { Message, MessageBox } from 'element-ui'
 // 创建axios实例
 const service = axios.create({
   baseURL: "http://localhost:3000", // api 的 base_url
@@ -28,6 +29,12 @@ service.interceptors.response.use(
      */
     const res = response.data
     if (res.code !== 200000) {
+      Message({
+        message: res.message,
+        type: 'error',
+        duration: 5 * 1000
+      })
+
       // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
       return Promise.reject('error')
     } else {
