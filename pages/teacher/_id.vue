@@ -74,14 +74,15 @@
   </div>
 </template>
 <script>
-//import teacher from "@/api/teacher"
+import teacher from "@/api/teacher"
 export default {
   asyncData({ params, error }) {
-    return teacher.getById(params.id).then(response => {
-      console.log(response.data.data);
+    return teacher.getTeacherInfo(params.id).then(response => {
+      console.log(params.id)
+      console.log(response.data);
       return { 
-        teacher: response.data.data.teacher,
-        courseList: response.data.data.courseList
+        teacher: response.data.teacher,
+        courseList:response.data.course,
       }
     })
   }

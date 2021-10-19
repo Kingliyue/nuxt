@@ -5,7 +5,7 @@ const config = {
         //edu
         getHostTeacherAndCourseUrl:"/edu/eduService/indexFront/getCourserList",
         getTeacherListPageUrl :'/edu/eduService/teacherFront/getTeacherListPage/',
-        getTeacherInfoUrl:'/edu/eduService/teacherFront/getTeacherInfo',
+        getTeacherInfoUrl:'/edu/eduService/teacherFront/getTeacherInfo/',
         //ucenter
         loginUrl:"/user/ucenter/member/login",
         registerUrl :"/user/ucenter/member/register",

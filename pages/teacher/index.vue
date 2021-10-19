@@ -23,15 +23,15 @@
           <!-- /无数据提示 结束-->
           <article class="i-teacher-list" v-if="data.total>0">
             <ul class="of">
-              <li v-for="item in data.items" v-bind:key="item.teacherId">
+              <li v-for="item in data.records" v-bind:key="item.id">
                 <section class="i-teach-wrap">
                     <div class="i-teach-pic">
-                        <a :href="'/teacher/'+item.teacherId" :title="item.name">
+                        <a :href="'/teacher/'+item.id" :title="item.name">
                             <img :src="item.avatar" :alt="item.name" width="142" height="142">
                         </a>
                     </div>
                     <div class="mt10 hLh30 txtOf tac">
-                        <a :href="'/teacher/'+item.teacherId" :title="item.name" class="fsize18 c-666">{{item.name}}</a>
+                        <a :href="'/teacher/'+item.id" :title="item.name" class="fsize18 c-666">{{item.name}}</a>
                     </div>
                     <div class="hLh30 txtOf tac">
                         <span class="fsize14 c-999" >{{item.career}}</span>
@@ -82,7 +82,7 @@ export default {
   methods: {
     gotoPage(page){
         teacher.getTeacherPage(page, 8).then(response => {
-            this.data = response.data.data
+            this.data = response.data
         })
     }
   }
