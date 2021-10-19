@@ -154,12 +154,12 @@ export default {
   data() {
     return {
       loginInfo: {},
-      token: "",
+      token: '',
     };
   },
   created() {
-    this.token = this.$router.query.token;
-    if (token) {
+    this.token = this.$route.query.token;
+    if (this.token) {
       this.showVxInfo();
     }
     this.showUserInfo();
