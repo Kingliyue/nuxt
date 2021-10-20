@@ -143,17 +143,24 @@
   </div>
 </template>
 <script>
-//import course from "@/api/course"
+import course from "@/api/course"
 export default {
+  data(){
+    return{
+      seachObj:{},
+      page:"1",
+    }
+  },
   asyncData({ params, error }) {
-    return course.getPageList(1, 8).then(response => {
+    this.seachObj = "";
+    return course.getCourseListPage(1, 8,this.seachObj).then(response => {
       console.log(response);
       return { data: response.data.data }
     })
   },
   methods: {
     gotoPage(page){
-        course.getPageList(page, 8).then(response => {
+        course.getCourseListPage(page, 8,this.seachObj).then(response => {
             this.data = response.data.data
         })
     }
