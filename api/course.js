@@ -10,6 +10,10 @@ const course = {
     getCourseInfo(courseId){
         let url = baseUrl.getCourseInfoUrl+`${courseId}`
         return http.get(url)
+    },
+    getSubject(){
+        let url = baseUrl.getSubjectUrl
+        return http.get(url)
     }
 }
 export default course;

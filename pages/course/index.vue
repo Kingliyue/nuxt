@@ -18,23 +18,8 @@
                 <li>
                   <a title="全部" href="#">全部</a>
                 </li>
-                <li>
-                  <a title="数据库" href="#">数据库</a>
-                </li>
-                <li class="current">
-                  <a title="外语考试" href="#">外语考试</a>
-                </li>
-                <li>
-                  <a title="教师资格证" href="#">教师资格证</a>
-                </li>
-                <li>
-                  <a title="公务员" href="#">公务员</a>
-                </li>
-                <li>
-                  <a title="移动开发" href="#">移动开发</a>
-                </li>
-                <li>
-                  <a title="操作系统" href="#">操作系统</a>
+                <li v-for="(item,index) in subjectNestedList" :key="index" :class="{active:oneIndex==index}">
+                  <a :title="item.title" @click="serachOneSubject(item.id,index)" href="#">{{item.title}}</a>
                 </li>
               </ul>
             </dd>
@@ -45,14 +30,8 @@
             </dt>
             <dd class="c-s-dl-li">
               <ul class="clearfix">
-                <li>
-                  <a title="职称英语" href="#">职称英语</a>
-                </li>
-                <li>
-                  <a title="英语四级" href="#">英语四级</a>
-                </li>
-                <li>
-                  <a title="英语六级" href="#">英语六级</a>
+                <li v-for="(item,index) in subSubjectList" :key="index">
+                    <a :title="item.title" @click="serachTowSubject(item.id,index)" href="#">{{item.title}}</a>
                 </li>
               </ul>
             </dd>
@@ -91,12 +70,12 @@
           <!-- /无数据提示 结束-->
           <article class="comm-course-list" v-if="data.total>0">
               <ul class="of" id="bna">
-                  <li  v-for="item in data.items" v-bind:key="item.courseId">
+                  <li  v-for="item in data.records" v-bind:key="item.id">
                       <div class="cc-l-wrap">
                           <section class="course-img">
                               <img :src="item.cover" class="img-responsive" alt="听力口语">
                               <div class="cc-mask">
-                                  <a :href="'/course/'+item.courseId" title="开始学习" class="comm-btn c-btn-1">开始学习</a>
+                                  <a :href="'/course/'+item.id" title="开始学习" class="comm-btn c-btn-1">开始学习</a>
                               </div>
                           </section>
                           <h3 class="hLh30 txtOf mt10">
@@ -104,7 +83,7 @@
                           </h3>
                           <section class="mt10 hLh20 of">
                               <span class="fr jgTag bg-green">
-                                  <i class="c-fff fsize12 f-fA">{{item.isFree===true?'免费':''}}</i>
+                                  <i class="c-fff fsize12 f-fA">{{item.price!= 0?'免费':'收費'}}</i>
                               </span>
                               <span class="fl jgAttr c-ccc f-fA">
                                   <i class="c-999 f-fA">{{item.viewCount}}人学习</i>
@@ -149,22 +128,71 @@ export default {
     return{
       seachObj:{},
       page:"1",
+      subjectNestedList: [], // 一级分类列表
+      subSubjectList: [], // 二级分类列表
+      oneIndex : '-1',
     }
   },
-  asyncData({ params, error }) {
-    this.seachObj = "";
-    return course.getCourseListPage(1, 8,this.seachObj).then(response => {
-      console.log(response);
-      return { data: response.data.data }
-    })
+  created(){
+    this.initCorseInfo();
+    this.initSubject();
   },
+  // asyncData({ params, error }) {
+  //   return course.getCourseListPage(1, 8,"").then(response => {
+  //     console.log(response.data);
+  //     return { data: response.data }
+  //   })
+  // },
   methods: {
+    initCorseInfo(){
+          this.seachObj ='';
+          course.getCourseListPage(page, 8,this.seachObj).then(response => {
+          this.data = response.data;
+          })
+    },
+    //用于分页查询
     gotoPage(page){
         course.getCourseListPage(page, 8,this.seachObj).then(response => {
-
-            this.data = response.data.data
+            this.data = response.data
         })
+    },
+    //
+    initSubject(){
+      course.getSubject().then(res=>{
+        this.subjectNestedList = res.data.subject
+        console.log(this.subjectNestedList)
+      })
+    },
+    //查找二级分类
+    serachOneSubject(subjectId,index){
+      //
+      this.oneIndex = index;
+      this.subSubjectList = "";
+      this.twoIndex = "-1";
+     
+      gotoPage(1);
+      for(var i = 0; i<this.subjectNestedList.length;i++){
+        if(this.subjectNestedList[i].id ===subjectId){
+          this.subSubjectList = this.subjectNestedList[i].children
+          console.log(this.subSubjectList)
+        }
+      }
+
+    },
+    serachTowSubject(subjectId,index){
+
     }
   }
 }
 </script>
+<style scoped>
+  .active {
+    background: #bdbdbdf5;
+  }
+  .hide {
+    display: none;
+  }
+  .show {
+    display: block;
+  }
+</style>

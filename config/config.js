@@ -9,7 +9,7 @@ const config = {
         getTeacherInfoUrl:'/edu/eduService/teacherFront/getTeacherInfo/',
 
         //edu course
-        getCourseListPageUrl:'/edu/eduService/courseFront/getCourseListPage',
+        getCourseListPageUrl:'/edu/eduService/courseFront/getCourseListPage/',
         getCourseInfoUrl:'/edu/eduService/courseFront/getCourseInfo/',
         getSubjectUrl:'/edu/eduService/courseFront/getSubject',
 
