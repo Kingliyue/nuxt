@@ -126,11 +126,15 @@ import course from "@/api/course"
 export default {
   data(){
     return{
-      seachObj:{},
+      seachObj:{
+        subjectParentId:'',
+        subjectId:''
+      },
       page:"1",
       subjectNestedList: [], // 一级分类列表
       subSubjectList: [], // 二级分类列表
       oneIndex : '-1',
+      data:[],
     }
   },
   created(){
@@ -145,8 +149,8 @@ export default {
   // },
   methods: {
     initCorseInfo(){
-          this.seachObj ='';
-          course.getCourseListPage(page, 8,this.seachObj).then(response => {
+          this.seachObj ={};
+          course.getCourseListPage(this.page, 8,this.seachObj).then(response => {
           this.data = response.data;
           })
     },
@@ -164,22 +168,27 @@ export default {
       })
     },
     //查找二级分类
-    serachOneSubject(subjectId,index){
+    serachOneSubject(subjectParentId,index){
       //
       this.oneIndex = index;
       this.subSubjectList = "";
       this.twoIndex = "-1";
-     
-      gotoPage(1);
+      this.seachObj.subjectId=''
+      this.$set(this.seachObj,'subjectParentId',subjectParentId)
+      
+      this.gotoPage(1);
       for(var i = 0; i<this.subjectNestedList.length;i++){
-        if(this.subjectNestedList[i].id ===subjectId){
+        if(this.subjectNestedList[i].id ===subjectParentId){
           this.subSubjectList = this.subjectNestedList[i].children
-          console.log(this.subSubjectList)
         }
       }
 
     },
     serachTowSubject(subjectId,index){
+      this.twoIndex = index;
+      this.seachObj.subjectId=subjectId
+      this.gotoPage(1)
+
 
     }
   }
