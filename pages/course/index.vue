@@ -16,7 +16,7 @@
             <dd class="c-s-dl-li">
               <ul class="clearfix">
                 <li>
-                  <a title="全部" href="#">全部</a>
+                  <a title="全部" href="#" @click="initCorseInfo()" :class="{active:allIndex == '1'}">全部</a>
                 </li>
                 <li v-for="(item,index) in subjectNestedList" :key="index" :class="{active:oneIndex==index}">
                   <a :title="item.title" @click="serachOneSubject(item.id,index)" href="#">{{item.title}}</a>
@@ -30,8 +30,8 @@
             </dt>
             <dd class="c-s-dl-li">
               <ul class="clearfix">
-                <li v-for="(item,index) in subSubjectList" :key="index">
-                    <a :title="item.title" @click="serachTowSubject(item.id,index)" href="#">{{item.title}}</a>
+                <li v-for="(item,index) in subSubjectList" :key="index" :class="{active:twoIndex==index}">
+                    <a :title="item.title" @click="serachTowSubject(item.id,index)"  href="#">{{item.title}}</a>
                 </li>
               </ul>
             </dd>
@@ -126,15 +126,14 @@ import course from "@/api/course"
 export default {
   data(){
     return{
-      seachObj:{
-        subjectParentId:'',
-        subjectId:''
-      },
+      data:{},
+      searchObj:{},
       page:"1",
       subjectNestedList: [], // 一级分类列表
       subSubjectList: [], // 二级分类列表
       oneIndex : '-1',
-      data:[],
+      twoIndex:'-1',
+      allIndex:'-1'
     }
   },
   created(){
@@ -149,14 +148,18 @@ export default {
   // },
   methods: {
     initCorseInfo(){
-          this.seachObj ={};
-          course.getCourseListPage(this.page, 8,this.seachObj).then(response => {
+          this.searchObj ={};
+          this.oneIndex = '-1'
+          this.twoIndex = '-1'
+          this.allIndex = '1'
+          this.subSubjectList = ''
+          course.getCourseListPage(this.page, 8,this.searchObj).then(response => {
           this.data = response.data;
           })
     },
     //用于分页查询
     gotoPage(page){
-        course.getCourseListPage(page, 8,this.seachObj).then(response => {
+        course.getCourseListPage(page, 8,this.searchObj).then(response => {
             this.data = response.data
         })
     },
@@ -169,27 +172,28 @@ export default {
     },
     //查找二级分类
     serachOneSubject(subjectParentId,index){
-      //
-      this.oneIndex = index;
-      this.subSubjectList = "";
-      this.twoIndex = "-1";
-      this.seachObj.subjectId=''
-      this.$set(this.seachObj,'subjectParentId',subjectParentId)
+      //用于样式显示
+      this.oneIndex = index
+      this.twoIndex = "-1"
+      this.allIndex = '-1'
+      this.subSubjectList = ""
+  
+      this.searchObj.subjectId = ""
+      this.searchObj.subjectParentId =subjectParentId
       
       this.gotoPage(1);
       for(var i = 0; i<this.subjectNestedList.length;i++){
         if(this.subjectNestedList[i].id ===subjectParentId){
           this.subSubjectList = this.subjectNestedList[i].children
+          console.log(this.subSubjectList)
         }
       }
 
     },
     serachTowSubject(subjectId,index){
-      this.twoIndex = index;
-      this.seachObj.subjectId=subjectId
+      this.twoIndex = index
+      this.searchObj.subjectId = subjectId
       this.gotoPage(1)
-
-
     }
   }
 }

@@ -160,14 +160,14 @@
 </template>
 
 <script>
-//import course from "@/api/course"
+import course from "@/api/course"
 export default {
   asyncData({ params, error }) {
-    return course.getById(params.id).then(response => {
-      console.log(response.data.data);
+    return course.getCourseInfo(params.id).then(response => {
+      console.log(response.data);
       return { 
-        course: response.data.data.course,
-        chapterList: response.data.data.chapterList
+        course: response.data.course,
+        chapterList: response.data.chapterList
       }
     })
   }
