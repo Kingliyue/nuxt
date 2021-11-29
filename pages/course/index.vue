@@ -79,11 +79,11 @@
                               </div>
                           </section>
                           <h3 class="hLh30 txtOf mt10">
-                              <a :href="'/course/'+item.courseId" :title="item.name" class="course-title fsize18 c-333">{{item.name}}</a>
+                              <a :href="'/course/'+item.courseId" :title="item.title" class="course-title fsize18 c-333">{{item.title}}</a>
                           </h3>
                           <section class="mt10 hLh20 of">
                               <span class="fr jgTag bg-green">
-                                  <i class="c-fff fsize12 f-fA">{{item.price!= 0?'免费':'收費'}}</i>
+                                  <i class="c-fff fsize12 f-fA">{{Number(item.price)!= 0.00?'免费':'收费'}}</i>
                               </span>
                               <span class="fl jgAttr c-ccc f-fA">
                                   <i class="c-999 f-fA">{{item.viewCount}}人学习</i>

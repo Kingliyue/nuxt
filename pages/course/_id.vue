@@ -86,7 +86,7 @@
                   <div class="course-txt-body-wrap">
                     <section class="course-txt-body">
                       <p>
-                        {{course.courseIntro}}
+                        {{course.description}}
                       </p>
                     </section>
                   </div>
@@ -101,17 +101,17 @@
                           <menu id="lh-menu" class="lh-menu mt10 mr10">
                               <ul>
                                   <!-- 课程章节目录 -->
-                                  <li class="lh-menu-stair" v-for="chapter in chapterList" v-bind:key="chapter.chanpterId">
-                                      <a href="javascript: void(0)" :title="chapter.name" class="current-1">
-                                          <em class="lh-menu-i-1 icon18 mr10"></em>{{chapter.name}}
+                                  <li class="lh-menu-stair" v-for="chapter in chapterList" v-bind:key="chapter.id">
+                                      <a href="javascript: void(0)" :title="chapter.title" class="current-1">
+                                          <em class="lh-menu-i-1 icon18 mr10"></em>{{chapter.title}}
                                       </a>
                                       <ol class="lh-menu-ol" style="display: block;">
-                                          <li class="lh-menu-second ml30"  v-for="video in chapter.videos" v-bind:key="video.videoId">
-                                              <a :href="'/player/' + video.videoUrl" target="_blank" :title="video.name">
-                                                  <span class="fr" v-if="video.isFree === true">
+                                          <li class="lh-menu-second ml30"  v-for="video in chapter.childVideo" v-bind:key="video.id">
+                                              <a :href="'/player/' + video.videoSourceId" target="_blank" :title="video.title">
+                                                  <span class="fr" v-if="Number(course.price)=== 0">
                                                       <i class="free-icon vam mr10">免费试听</i>
                                                   </span>
-                                                  <em class="lh-menu-i-2 icon16 mr5">&nbsp;</em>{{video.name}}
+                                                  <em class="lh-menu-i-2 icon16 mr5">&nbsp;</em>{{video.title}}
                                               </a>
                                           </li>
                                       </ol>
@@ -141,7 +141,7 @@
                               </a>
                           </div>
                           <section class="hLh30 txtOf">
-                              <a class="c-333 fsize16 fl" :href="'/teacher/'+course.teacherId" target="_blank">{{course.teacherName}}</a>
+                              <a class="c-333 fsize16 fl" :href="'/teacher/'+course.teacherId" target="_blank">{{course.name}}</a>
                           </section>
                           <section class="hLh20 txtOf">
                               <span class="c-999">{{course.intro}}</span>
@@ -168,6 +168,7 @@ export default {
       return { 
         course: response.data.course,
         chapterList: response.data.chapterList
+      
       }
     })
   }
