@@ -20,7 +20,8 @@ const config = {
         getTokenUrl:"/user/ucenter/member/getToken",
         //msm
         getPhoneCodeUr:"/code/msm/send/",
-        //course
+        //order 
+        generateOrdersUrl:'order/Torder/generateOrders',
         
 
 }

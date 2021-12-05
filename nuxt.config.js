@@ -70,13 +70,19 @@ module.exports = {
       pathRewrite: {
         '^/user': '', // 把 /api 替换成‘’
       }
-    }, '/code': {
+    }, 
+    '/code': {
       target: 'http://localhost:8005', // 目标接口域名
       changeOrigin: true, // 表示是否跨域
       pathRewrite: {
         '^/code': '', // 把 /api 替换成‘’
       }
-    }
+    },
+    '/order': {
+      target: 'http://localhost:8007', // 目标接口域名
+      changeOrigin: true, // 表示是否跨域
+  
+    },
   },
   plugins: [
     { src: '~/plugins//nuxt-swiper-plugin.js', ssr: false }

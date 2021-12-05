@@ -83,7 +83,7 @@
                           </h3>
                           <section class="mt10 hLh20 of">
                               <span class="fr jgTag bg-green">
-                                  <i class="c-fff fsize12 f-fA">{{Number(item.price)!= 0.00?'免费':'收费'}}</i>
+                                  <i class="c-fff fsize12 f-fA">{{Number(item.price) == 0.00?'免费':'收费'}}</i>
                               </span>
                               <span class="fl jgAttr c-ccc f-fA">
                                   <i class="c-999 f-fA">{{item.viewCount}}人学习</i>
