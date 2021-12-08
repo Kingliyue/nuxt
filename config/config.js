@@ -21,7 +21,8 @@ const config = {
         //msm
         getPhoneCodeUr:"/code/msm/send/",
         //order 
-        generateOrdersUrl:'order/Torder/generateOrders',
+        generateOrdersUrl:'/orders/order/Torder/generateOrders',
+        getOrderInfoUrl:'/orders/order/Torder/getOrderInfo/',
         
 
 }

@@ -78,10 +78,12 @@ module.exports = {
         '^/code': '', // 把 /api 替换成‘’
       }
     },
-    '/order': {
+    '/orders': {
       target: 'http://localhost:8007', // 目标接口域名
       changeOrigin: true, // 表示是否跨域
-  
+      pathRewrite: {
+        '^/orders': '', // 把 /api 替换成‘’
+      }
     },
   },
   plugins: [
